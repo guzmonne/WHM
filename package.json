@@ -1,0 +1,26 @@
+{
+  "name": "WHM",
+  "version": "0.0.0",
+  "description": "Wireless Heat Mapper App build for Windows powered by NodeJS and WebKit",
+  "main": "index.html",
+  "scripts": {
+    "test": "test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:guzmonne/WHM.git"
+  },
+  "keywords": [
+    "Node",
+    "HeatMapper",
+    "Wireless",
+    "SSID",
+    "Webkit"
+  ],
+  "author": "Guzman Monne",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/guzmonne/WHM/issues"
+  },
+  "homepage": "https://github.com/guzmonne/WHM"
+}
