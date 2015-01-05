@@ -25,4 +25,5 @@ App.controller('NetshIndexCtrl', function($scope, $interval){
   $scope.$on('$destroy', function(){ $scope.stopReadings(); });
 
   $scope.getReadings();
+
 });

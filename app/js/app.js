@@ -1,6 +1,6 @@
 'use strict';
 
-window.App = angular.module('whmApp', ['ui.router']);
+window.App = angular.module('whmApp', ['ui.router', 'chart.js']);
 
 App.config(function($stateProvider, $urlRouterProvider){
   $urlRouterProvider.otherwise('/home');
