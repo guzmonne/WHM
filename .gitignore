@@ -3,6 +3,7 @@ tmp/*
 .DS_Store
 app/libs
 buildTmp/
+dist/
 
 # Logs
 logs

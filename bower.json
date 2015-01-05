@@ -2,6 +2,8 @@
   "name": "package",
   "version": "0.0.0",
   "dependencies": {
-    "angular-ui-router": "~0.2.13"
+    "angular-ui-router": "~0.2.13",
+    "lodash": "~2.4.1",
+    "angular-chart.js": "~0.3.9"
   }
 }
