@@ -1,0 +1,15 @@
+{
+  "name": "msf",
+  "main": "views/index.html",
+  "version": "0.0.1",
+  "single-instance": true,
+  "window": {
+    "title"     : "msf",
+    "width"     : 1280,
+    "height"    : 720,
+    "min_width" : 640,
+    "min_height": 480,
+    "toolbar"   : false
+  },
+  "chromium-args": "--child-clean-exit"
+}
