@@ -10,9 +10,17 @@ App.config(function($stateProvider, $urlRouterProvider){
       templateUrl : './templates/home/home.html'
     })
     .state('netsh', {
-      url         : '/netsh',
-      templateUrl : './templates/netsh/netsh.index.html',
-      controller  : 'NetshIndexCtrl'
+      url   : '/netsh',
+      views : {
+        '': {
+          templateUrl : './templates/netsh/netsh.index.html',
+          controller  : 'NetshIndexCtrl'
+        },
+        'viewA@netsh': {
+          templateUrl : './templates/netsh/netsh.viewA.html',
+          controller  : 'NetshViewACtrl'
+        }
+      }
     })
     .state('about', {
       url: '/about',
