@@ -20,7 +20,7 @@ App.controller('NetshIndexCtrl', function($scope, $interval){
     stop = undefined;
   };
 
-  stop = $interval(function(){ $scope.getReadings(); }, 1000);
+  stop = $interval(function(){ $scope.getReadings(); }, 500);
 
   $scope.$on('$destroy', function(){ $scope.stopReadings(); });
 

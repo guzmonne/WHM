@@ -38,5 +38,5 @@ SSID 9 : dedicado_wifi\
 '
 Netsh.wifiNetworkScan(function(err, networks, raw){
     if (err) console.log(err);
-    console.log(networks + '\n\n' + raw);
+    console.log(networks);
 });
