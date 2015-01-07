@@ -5,6 +5,22 @@ var Netsh = require('./js/modules/netsh.js');
 App.controller('NetshIndexCtrl', function($scope, $interval){
   var stop;
 
+  $scope.overNetwork = {};
+
+  $scope.over = function(network){ $scope.overNetwork = network;};
+
+  $scope.resetOverNetwork = function(){ $scope.overNetwork = {}; };
+
+  $scope.backgroundOnHover = function(ssid){
+    if (ssid === $scope.overNetwork.ssid) {
+      return {
+        'color'           : 'black',
+        'background-color': $scope.$$childHead.networkColours[ssid].fillColor
+      }
+    }
+    return {};
+  };
+
   $scope.networks = {};
 
   $scope.getReadings = function(){
@@ -20,7 +36,7 @@ App.controller('NetshIndexCtrl', function($scope, $interval){
     stop = undefined;
   };
 
-  stop = $interval(function(){ $scope.getReadings(); }, 500);
+  stop = $interval(function(){ $scope.getReadings(); }, 1000);
 
   $scope.$on('$destroy', function(){ $scope.stopReadings(); });
 

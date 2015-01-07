@@ -19,6 +19,10 @@ App.config(function($stateProvider, $urlRouterProvider){
         'viewA@netsh': {
           templateUrl : './templates/netsh/netsh.viewA.html',
           controller  : 'NetshViewACtrl'
+        },
+        'viewB@netsh': {
+          templateUrl : './templates/netsh/netsh.viewB.html',
+          controller  : 'NetshViewBCtrl'
         }
       }
     })

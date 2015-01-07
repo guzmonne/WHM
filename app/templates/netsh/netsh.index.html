@@ -16,7 +16,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr data-ng-repeat="network in networks track by $index">
+        <tr data-ng-repeat="network in networks track by $index" ng-mouseleave="resetOverNetwork()" ng-mouseover="over(network)" ng-style="backgroundOnHover(network.ssid)">
           <td>{{network.ssid}}</td>
           <td>{{network.auth}}</td>
           <td>{{network.cyph}}</td>
@@ -35,5 +35,8 @@
 <div class="row">
   <div class="col-lg-6">
     <div data-ui-view="viewA"></div>
+  </div>
+  <div class="col-lg-6">
+    <div data-ui-view="viewB"></div>
   </div>
 </div>
