@@ -31,14 +31,14 @@ App.controller('NetshIndexCtrl', function($scope, $interval){
     });
   };
 
-  $scope.stopReadings = function(){
+  $scope.stopInterval = function(){
     if (angular.isDefined(stop)) $interval.cancel(stop);
     stop = undefined;
   };
 
-  stop = $interval(function(){ $scope.getReadings(); }, 1000);
+  $scope.$on('$destroy', function(){ $scope.stopInterval(); });
 
-  $scope.$on('$destroy', function(){ $scope.stopReadings(); });
+  stop = $interval(function(){ $scope.getReadings(); }, 1000);
 
   $scope.getReadings();
 
