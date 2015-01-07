@@ -14,7 +14,7 @@ App.controller('NetshIndexCtrl', function($scope, $interval){
   $scope.backgroundOnHover = function(ssid){
     if (ssid === $scope.overNetwork.ssid) {
       return {
-        'color'           : 'black',
+        'color'           : $scope.$$childHead.networkColours[ssid].strokeColor,
         'background-color': $scope.$$childHead.networkColours[ssid].fillColor
       }
     }
