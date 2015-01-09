@@ -2,3 +2,8 @@
   background-color: #007CA6;
   color: white;
 }
+
+.height-250 {
+  height: 250px;
+  overflow: auto;
+}

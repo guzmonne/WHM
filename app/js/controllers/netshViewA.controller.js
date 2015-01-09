@@ -6,6 +6,7 @@ App.controller('NetshViewACtrl', function($scope, ChartHelper){
   $scope.options = {
     bezierCurve : false,
     pointDot    : false,
+    animation   : false,
   };
   
   $scope.$watch('networks', function(networks){

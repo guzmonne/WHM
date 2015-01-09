@@ -2,6 +2,7 @@
 
 App.controller('NetshViewBCtrl', ['$scope', '$interval', 'ChartHelper', 'ArrayHelper', 'lodash', function($scope, $interval, ChartHelper, ArrayHelper, _){
   var stop;
+  var cachedNetworks = {};
 
   $scope.stopInterval = function(){
     if (angular.isDefined(stop)) $interval.cancel(stop);
@@ -12,21 +13,36 @@ App.controller('NetshViewBCtrl', ['$scope', '$interval', 'ChartHelper', 'ArrayHe
 
   stop = $interval(function(){
     ArrayHelper.shiftData( $scope.labels, ( parseInt($scope.labels[$scope.labels.length - 1]) | 0) + 1 );
-    for(var i = 0; i < $scope.networks.length; i++){
-      var network = $scope.networks[i];
-      var index   = $scope.series.indexOf(network.ssid);
-      if (index > -1){
-        $scope.data[index] = ArrayHelper.shiftData($scope.data[index], network.quality);
+    var colours = $scope.$$prevSibling.networkColours;
+    var result = {
+      data    : [],
+      series  : [],
+      colours : [],
+    };
+    var activeNetworks = {};
+    _.each(cachedNetworks, function(cachedNetwork){ cachedNetwork.active = false; });
+    _.each($scope.networks, function(network){
+      ChartHelper.historicQualityPlot(network, cachedNetworks, colours);
+    });
+    _.each(_.keys(cachedNetworks), function(networkID){
+      var cachedNetwork = cachedNetworks[networkID];
+      if(cachedNetwork.active){
+        result.data.push(cachedNetwork.data);
       } else {
-        ChartHelper.newNetworkSeries($scope, network, $scope.$$prevSibling.networkColours);
+        result.data.push(ArrayHelper.shiftData(cachedNetwork.data, 0));
+        if (cachedNetwork.data.reduce(function(o, n){ return o + n }) === 0) delete cachedNetworks[networkID];
       }
-    }
-    console.log(_, $scope.$$prevSibling.networkColours);
+      result.series.push (cachedNetwork.ssid);
+      result.colours.push(ChartHelper.networkColor(cachedNetwork.ssid, colours));
+    });
+    $scope.data    = result.data;
+    $scope.series  = result.series;
+    $scope.colours = result.colours;
   }, 1000);
 
   $scope.options = { 
     datasetFill : false,
-    bezierCurve : false,
+    //bezierCurve : false,
     animation   : false,
     pointDot    : false,
   };

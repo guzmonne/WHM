@@ -18,6 +18,20 @@ App.service('ChartHelper', function(ArrayHelper){
       chart[channel+3] = quality;
       return chart;
     },
+    historicQualityPlot: function(network, cachedNetworks, colours){
+      var networkID     = network.ssid + network.channel;
+      var cachedNetwork = cachedNetworks[networkID];
+      if (cachedNetwork){
+        this.shiftChartData(network, cachedNetwork);
+      } else {
+        cachedNetwork = cachedNetworks[networkID] = this.newNetworkSeries(network, colours);
+      }
+      return cachedNetwork.data;
+    },
+    shiftChartData: function(network, cachedNetwork){
+      ArrayHelper.shiftData(cachedNetwork.data, network.quality);
+      cachedNetwork.active = true;
+    },
     createChartColor: function(){
       var color = Please.make_color({format: 'rgb-string'})[0].replace('b', 'ba');
       return {
@@ -34,10 +48,21 @@ App.service('ChartHelper', function(ArrayHelper){
       if (colors[ssid])   return colors[ssid];
       return ( colors[ssid] = this.createChartColor() );
     },
-    newNetworkSeries: function(object, network, colours){
-      object.data.push   ( ArrayHelper.shiftData(ArrayHelper.zeroArray(30), network.quality) );
-      object.series.push ( network.ssid );
-      object.colours.push( colours[network.ssid] );
+    newNetworkSeries: function(network, colours){
+      return {
+        data   : ArrayHelper.shiftData(ArrayHelper.zeroArray(30), network.quality),
+        ssid   : network.ssid,
+        colour : colours[network.ssid],
+        active : true
+      };
+      //object.data.push   ( ArrayHelper.shiftData(ArrayHelper.zeroArray(30), network.quality) );
+      //object.series.push ( network.ssid );
+      //object.colours.push( colours[network.ssid] );
+    },
+    pushNewNetwork: function(object, network){
+      object.data.push   (network.data);
+      object.series.push (network.ssid);
+      object.colours.push(network.colour);
     },
   };
 });
